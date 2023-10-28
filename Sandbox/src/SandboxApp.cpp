@@ -1,4 +1,4 @@
-#include<Hazel.h>
+#include <Hazel.h>
 
 class Sandbox :public Hazel::Application
 {
@@ -7,6 +7,7 @@ public:
 	{
 
 	}
+
 	~Sandbox()
 	{
 
@@ -14,6 +15,7 @@ public:
 
 };
 
+// 创建应用
 Hazel::Application* Hazel::CreateApplication()
 {
 	return new Sandbox();
