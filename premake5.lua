@@ -1,10 +1,10 @@
--- ¹¤×÷¿Õ¼äÃû³Æ
+-- ï¿½ï¿½ï¿½ï¿½ï¿½Õ¼ï¿½ï¿½ï¿½ï¿½ï¿½
 workspace "Hazel" 
-	-- ¼Ü¹¹
+	-- ï¿½Ü¹ï¿½
 	architecture "x86_64"
 	startproject "Sandbox"
 
-	-- ÅäÖÃ
+	-- ï¿½ï¿½ï¿½ï¿½
 	configurations
 	{
 		"Debug",
@@ -12,55 +12,59 @@ workspace "Hazel"
 		"Dist"
 	}
 
--- ×Ô¶¨Òå±äÁ¿ Êä³öÄ¿Â¼
+-- ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ä¿Â¼
 outputdir="%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 IncludeDir = {}
 IncludeDir["GLFW"] = "Hazel/vendor/GLFW/include"
 IncludeDir["Glad"] = "Hazel/vendor/Glad/include"
+IncludeDir["ImGui"] = "Hazel/vendor/imgui"
 
 include "Hazel/vendor/GLFW"
 include "Hazel/vendor/Glad"
+include "Hazel/vendor/imgui"
 
 project "Hazel"
 	location "Hazel"
 	kind "SharedLib"
 	language "C++"
 
-	-- Ä¿±êÄ¿Â¼
+	-- Ä¿ï¿½ï¿½Ä¿Â¼
 	targetdir("bin/" .. outputdir .. "/%{prj.name}")
-	-- ÖÐ¼äÄ¿Â¼
+	-- ï¿½Ð¼ï¿½Ä¿Â¼
 	objdir("bin-int/" .. outputdir .. "/%{prj.name}")
 
 	pchheader "hzpch.h"
 	pchsource "Hazel/src/hzpch.cpp"
 
-	-- °üº¬ÎÄ¼þ ** µÝ¹éËÑË÷±ê¼Ç
+	-- ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ ** ï¿½Ý¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	files
 	{
 		"%{prj.name}/src/**.h",
 		"%{prj.name}/src/**.cpp"
 	}
 
-	-- °üº¬Ä¿Â¼
+	-- ï¿½ï¿½ï¿½ï¿½Ä¿Â¼
 	includedirs
 	{
-		-- HazelºËÐÄÄ¿Â¼, ¼ÓÈë°üº¬Ä¿Â¼, ·½±ãÊ¹ÓÃ
+		-- Hazelï¿½ï¿½ï¿½ï¿½Ä¿Â¼, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿Â¼, ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½
 		"%{prj.name}/src",
 		"%{prj.name}/vendor/spdlog/include",
 		"%{IncludeDir.GLFW}",
-		"%{IncludeDir.Glad}"
+		"%{IncludeDir.Glad}",
+		"%{IncludeDir.ImGui}"
 	}
 
 	links
 	{
 		"GLFW",
 		"Glad",
+		"ImGui",
 		"opengl32.lib",
 		"Dwmapi.lib"
 	}
 
-	-- ¹ýÂËÆ÷
+	-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	filter "system:windows"
 
 		cppdialect "C++17"
@@ -72,7 +76,7 @@ project "Hazel"
 			"HZ_PLATFORM_WINDOWS",
 			"HZ_BUILD_DLL",
 			"_WINDLL",
-			"GLFW_INCLUDE_NONE" -- ±ÜÃâglad.hÖÐÖØ¸´°üº¬
+			"GLFW_INCLUDE_NONE" -- ï¿½ï¿½ï¿½ï¿½glad.hï¿½ï¿½ï¿½Ø¸ï¿½ï¿½ï¿½ï¿½ï¿½
 		}
 
 		postbuildcommands
