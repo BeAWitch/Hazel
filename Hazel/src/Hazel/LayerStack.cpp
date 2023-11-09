@@ -21,6 +21,7 @@ namespace Hazel {
 		m_Layers.emplace(m_LayerInsert, layer);
 	}
 
+	// Ìí¼Óµþ¼Ó²ã
 	void LayerStack::PushOverlay(Layer* overlay)
 	{
 		m_Layers.emplace_back(overlay);

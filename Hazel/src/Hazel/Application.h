@@ -18,6 +18,7 @@ namespace Hazel {
 
 		void Run();
 
+		// 处理事件
 		void OnEvent(Event& e);
 
 		void PushLayer(Layer* layer);
