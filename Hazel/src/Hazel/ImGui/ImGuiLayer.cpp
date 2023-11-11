@@ -56,7 +56,7 @@ namespace Hazel {
 		io.KeyMap[ImGuiKey_RightShift] = GLFW_KEY_RIGHT_SHIFT;
 		io.KeyMap[ImGuiKey_LeftCtrl] = GLFW_KEY_LEFT_CONTROL;
 		io.KeyMap[ImGuiKey_RightCtrl] = GLFW_KEY_RIGHT_CONTROL;
-		
+
 
 		ImGui_ImplOpenGL3_Init("#version 410");
 	}
