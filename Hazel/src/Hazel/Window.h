@@ -42,6 +42,9 @@ namespace Hazel {
 		virtual void SetVSync(bool enabled) = 0;
 		virtual bool IsVSync() const = 0;
 
+		// 使用void类型的指针，是为了不用GLFW时也能适配
+		virtual void* GetNativeWindow() const = 0;
+
 		//需在每个平台中实现
 		static Window* Create(const WindowProps& props = WindowProps());
 	};
