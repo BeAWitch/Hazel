@@ -45,7 +45,7 @@ namespace Hazel {
 		// 若当前的 Event 是 WindowCloseEvent，则调用 OnWindowClose 来终止程序
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
 		// 打印日志信息
-		HZ_CORE_TRACE("{0}", e);
+		//HZ_CORE_TRACE("{0}", e);
 
 		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin();)
 		{
@@ -67,8 +67,6 @@ namespace Hazel {
 			{
 				layer->OnUpdate();
 			}
-			auto [x, y] = Input::GetMousePosition();
-			HZ_CORE_TRACE("{0}, {1}", x, y);
 
 			m_Window->OnUpdate();
 		}

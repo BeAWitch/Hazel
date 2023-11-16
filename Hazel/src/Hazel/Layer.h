@@ -20,7 +20,7 @@ namespace Hazel {
 		/*每一帧更新时被调用*/
 		virtual void OnUpdate() {};
 		/*用于处理事件*/
-		virtual void OnEvent(Event& event) {};
+		virtual void OnEvent(Event& event) { };
 
 		inline const std::string& Getname() const { return m_DebugName; }
 	protected:
