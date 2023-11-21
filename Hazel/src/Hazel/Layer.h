@@ -19,6 +19,8 @@ namespace Hazel {
 		virtual void OnDetach() {};
 		/*每一帧更新时被调用*/
 		virtual void OnUpdate() {};
+		/*ImGui渲染*/
+		virtual void OnImGuiRender() {};
 		/*用于处理事件*/
 		virtual void OnEvent(Event& event) { };
 
