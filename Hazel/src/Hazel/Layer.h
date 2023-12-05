@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Core.h"
+#include "Hazel/Core/Timestep.h"
 #include "Hazel/Events/Event.h"
 
 namespace Hazel {
@@ -18,7 +19,7 @@ namespace Hazel {
 		在OnDetach()函数中，你可以进行资源的释放，清理内存，或者执行其他在实体或组件被销毁时需要进行的操作*/
 		virtual void OnDetach() {};
 		/*每一帧更新时被调用*/
-		virtual void OnUpdate() {};
+		virtual void OnUpdate(Timestep ts) {};
 		/*ImGui渲染*/
 		virtual void OnImGuiRender() {};
 		/*用于处理事件*/

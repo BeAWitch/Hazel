@@ -2,6 +2,8 @@
 
 #include "imgui/imgui.h"
 
+#include <glm/gtc/matrix_transform.hpp>
+
 class ExampleLayer :public Hazel::Layer
 {
 public:
@@ -46,6 +48,7 @@ public:
 
 			uniform mat4 u_ViewMatrix;
 			uniform mat4 u_ProjectionMatrix;
+			uniform mat4 u_TransformMatrix;
 
 			out vec3 v_Position;
 			out vec4 v_Color;
@@ -54,7 +57,7 @@ public:
 			{
 				v_Position = a_Position;
 				v_Color = a_Color;
-				gl_Position = gl_Position = u_ProjectionMatrix * u_ViewMatrix * vec4(a_Position, 1.0f);
+				gl_Position = gl_Position = u_ProjectionMatrix * u_ViewMatrix * u_TransformMatrix * vec4(a_Position, 1.0f);
 			}
 		)";
 
@@ -112,13 +115,14 @@ public:
 
 			uniform mat4 u_ViewMatrix;
 			uniform mat4 u_ProjectionMatrix;
+			uniform mat4 u_TransformMatrix;
 
 			out vec3 v_Position;
 
 			void main()
 			{
 				v_Position = a_Position;
-				gl_Position = u_ProjectionMatrix * u_ViewMatrix * vec4(a_Position, 1.0f);
+				gl_Position = u_ProjectionMatrix * u_ViewMatrix * u_TransformMatrix * vec4(a_Position, 1.0f);
 			}
 		)";
 
@@ -138,23 +142,23 @@ public:
 		m_BlueShader.reset(new Hazel::Shader(SquareVertexSrc, SquareFragmentSrc));
 	}
 
-	virtual void OnUpdate() override
+	virtual void OnUpdate(Hazel::Timestep ts) override
 	{
 		// 上下和左右不同时发生，注意 if - else if
 		if (Hazel::Input::IsKeyPressed(HZ_KEY_W))
-			m_CameraPosition.y += m_CameraMoveSpeed;
+			m_CameraPosition.y += m_CameraMoveSpeed * ts;
 		else if (Hazel::Input::IsKeyPressed(HZ_KEY_S))
-			m_CameraPosition.y -= m_CameraMoveSpeed;
+			m_CameraPosition.y -= m_CameraMoveSpeed * ts;
 
 		if (Hazel::Input::IsKeyPressed(HZ_KEY_A))
-			m_CameraPosition.x -= m_CameraMoveSpeed;
+			m_CameraPosition.x -= m_CameraMoveSpeed * ts;
 		else if (Hazel::Input::IsKeyPressed(HZ_KEY_D))
-			m_CameraPosition.x += m_CameraMoveSpeed;
+			m_CameraPosition.x += m_CameraMoveSpeed * ts;
 
 		if (Hazel::Input::IsKeyPressed(HZ_KEY_LEFT))
-			m_CameraRotation -= m_CameraRotationSpeed;
+			m_CameraRotation -= m_CameraRotationSpeed * ts;
 		else if (Hazel::Input::IsKeyPressed(HZ_KEY_RIGHT))
-			m_CameraRotation += m_CameraRotationSpeed;
+			m_CameraRotation += m_CameraRotationSpeed * ts;
 
 		Hazel::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 		Hazel::RenderCommand::Clear();
@@ -190,11 +194,10 @@ private:
 	Hazel::OrthoGraphicCamera m_Camera;
 
 	glm::vec3 m_CameraPosition;
-	float m_CameraMoveSpeed = 0.1f;
+	float m_CameraMoveSpeed = 3.0f;
 
 	float m_CameraRotation = 0.0f;
-	float m_CameraRotationSpeed = 1.0f;
-
+	float m_CameraRotationSpeed = 180.0f;
 };
 
 class Sandbox :public Hazel::Application
