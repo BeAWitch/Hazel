@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 // 用 HAZEL_API 来动态替代 __declspec(dllexport) 和 __declspec(dllimport)
 #ifdef HZ_PLATFORM_WINDOWS
 #ifdef HZ_DYNAMIC_LINK
@@ -31,3 +33,12 @@
 #define BIT(x) (1 << x)
 
 #define HZ_BIND_EVENT_FN(fn) std::bind(&fn, this, std::placeholders::_1)
+
+namespace Hazel {
+
+	template<typename T>
+	using Scope = std::unique_ptr<T>;
+
+	template<typename T>
+	using Ref = std::shared_ptr<T>;
+}
