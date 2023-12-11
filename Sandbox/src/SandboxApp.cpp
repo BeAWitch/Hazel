@@ -147,43 +147,9 @@ public:
 
 		m_FlatColorShader.reset(Hazel::Shader::Create(SquareVertexSrc, SquareFragmentSrc));
 
-		std::string TextureShaderVertexSrc = R"(
-			#version 330 core
+		m_TextureShader.reset(Hazel::Shader::Create("assets/shaders/Texture.glsl"));
 
-			layout(location = 0) in vec3 a_Position;
-			layout(location = 1) in vec2 a_TexCoord;
-
-			uniform mat4 u_ViewMatrix;
-			uniform mat4 u_ProjectionMatrix;
-			uniform mat4 u_TransformMatrix;
-
-			out vec2 v_TexCoord;
-
-			void main()
-			{
-				v_TexCoord = a_TexCoord;
-				gl_Position = u_ProjectionMatrix * u_ViewMatrix * u_TransformMatrix * vec4(a_Position, 1.0f);
-			}
-		)";
-
-		std::string TextureShaderFragmentSrc = R"(
-			#version 330 core
-
-			layout(location = 0) out vec4 color;
-
-			in vec2 v_TexCoord;
-
-			uniform sampler2D u_Texture;
-
-			void main()
-			{
-				color = texture(u_Texture, v_TexCoord);
-			}
-		)";
-
-		m_TextureShader.reset(Hazel::Shader::Create(TextureShaderVertexSrc, TextureShaderFragmentSrc));
-
-		m_Texture = Hazel::Texture2D::Create("assets/textures/Checkerboard.png");
+		m_Texture = Hazel::Texture2D::Create("assets/textures/ChernoLogo.png");
 
 		std::dynamic_pointer_cast<Hazel::OpenGLShader>(m_FlatColorShader)->Bind();
 		std::dynamic_pointer_cast<Hazel::OpenGLShader>(m_FlatColorShader)->UploadUniformInt("u_Texture", 0);

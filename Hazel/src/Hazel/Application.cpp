@@ -1,7 +1,9 @@
 #include "hzpch.h"
 #include "Application.h"
 
-#include"Hazel/Log.h"
+#include "Hazel/Log.h"
+
+#include "Hazel/Renderer/Renderer.h"
 
 #include "Hazel/Input.h"
 
@@ -20,6 +22,8 @@ namespace Hazel {
 
 		m_Window = std::unique_ptr<Window>(Window::Create());// ·µ»Ø WindowsWindow ÊµÀý
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
+
+		Renderer::Init();
 
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);
