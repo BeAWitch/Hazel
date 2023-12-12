@@ -25,9 +25,16 @@ namespace Hazel {
 		std::string Source = ReadFile(filepath);
 		auto shaderSources = PreProcess(Source);
 		Compile(shaderSources);
+
+		auto lastSlash = filepath.find_last_of("/\\"); // 找最后一个 '/' 或 '\'
+		lastSlash = lastSlash == std::string::npos ? 0 : lastSlash + 1; // 文件路径可能没有斜杠
+		auto lastDot = filepath.rfind('.');
+		auto count = lastDot == std::string::npos ? filepath.size() - lastSlash : lastDot - lastSlash;
+		m_Name = filepath.substr(lastSlash, count);
 	}
 
-	OpenGLShader::OpenGLShader(const std::string& vertexSrc, const std::string& fragmentSrc)
+	OpenGLShader::OpenGLShader(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc)
+		:m_Name(name)
 	{
 		std::unordered_map<GLenum, std::string> shaderSources;
 		shaderSources[GL_VERTEX_SHADER] = vertexSrc;
@@ -95,7 +102,7 @@ namespace Hazel {
 	std::string OpenGLShader::ReadFile(const std::string& filepath)
 	{
 		std::string result;
-		std::ifstream in(filepath, std::ios::in, std::ios::binary);
+		std::ifstream in(filepath, std::ios::in | std::ios::binary);
 		if (in)
 		{
 			in.seekg(0, std::ios::end);
@@ -138,7 +145,9 @@ namespace Hazel {
 	void OpenGLShader::Compile(std::unordered_map<GLenum, std::string>& shaderSources)
 	{
 		GLuint program = glCreateProgram();
-		std::vector<GLuint> glShaderIDs;
+		HZ_CORE_ASSERT(shaderSources.size() <= 2, "Only 2 shaders are supported now");
+		std::array<GLuint, 2> glShaderIDs;
+		int glShaderIDsIndex = 0;
 		for (auto& [type, shaderSource] : shaderSources)
 		{
 			// 创建空的着色器
@@ -172,7 +181,7 @@ namespace Hazel {
 
 			// Link them together into a program.
 			glAttachShader(program, shader);
-			glShaderIDs.push_back(shader);
+			glShaderIDs[glShaderIDsIndex++] = shader;
 		}
 
 		// Link our program
