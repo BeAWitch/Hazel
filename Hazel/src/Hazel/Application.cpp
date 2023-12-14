@@ -51,6 +51,7 @@ namespace Hazel {
 		EventDispatcher dispatcher(e);
 		// 若当前的 Event 是 WindowCloseEvent，则调用 OnWindowClose 来终止程序
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
+		dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(OnWindowResize));
 		// 打印日志信息
 		//HZ_CORE_TRACE("{0}", e);
 
@@ -71,9 +72,12 @@ namespace Hazel {
 			Timestep ts = time - m_LastFrameTime;
 			m_LastFrameTime = time;
 
-			for (Layer* layer : m_LayerStack)
+			if (!m_Minimized)
 			{
-				layer->OnUpdate(ts);
+				for (Layer* layer : m_LayerStack)
+				{
+					layer->OnUpdate(ts);
+				}
 			}
 
 			m_ImGuiLayer->Begin();
@@ -91,5 +95,19 @@ namespace Hazel {
 	{
 		m_Running = false;
 		return true;
+	}
+
+	bool Application::OnWindowResize(WindowResizeEvent& e)
+	{
+		if (e.GetWidth() == 0 || e.GetHeight() == 0)
+		{
+			m_Minimized = true;
+			return false;
+		}
+
+		m_Minimized = false;
+		Renderer::OnWindowResize(e.GetWidth(), e.GetHeight());
+
+		return false;
 	}
 }
