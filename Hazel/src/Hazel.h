@@ -3,16 +3,16 @@
 // 该头文件用于包含所有需要的文件，这样在 Sandbox 中就只用包含 Hazel.h 了
 
 //for use by Hazel applications
-#include "Hazel/Application.h"
-#include "Hazel/Layer.h"
-#include "Hazel/Log.h"
+#include "Hazel/Core/Application.h"
+#include "Hazel/Core/Layer.h"
+#include "Hazel/Core/Log.h"
 
 #include "Hazel/Core/Timestep.h"
 
-#include "Hazel/Input.h"
-#include "Hazel/KeyCodes.h"
-#include "Hazel/MouseButtonCodes.h"
-#include "Hazel/OrthoGraphicCameraController.h"
+#include "Hazel/Core/Input.h"
+#include "Hazel/Core/KeyCodes.h"
+#include "Hazel/Core/MouseButtonCodes.h"
+#include "Hazel/Renderer/OrthoGraphicCameraController.h"
 
 #include "Hazel/ImGui/ImGuiLayer.h"
 
@@ -29,7 +29,7 @@
 //------------------------------------------
 
 //----Entry Point---------------------------
-#include "Hazel/EntryPoint.h"
+#include "Hazel/Core/EntryPoint.h"
 //------------------------------------------
 
 
