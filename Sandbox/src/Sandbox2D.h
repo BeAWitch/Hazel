@@ -2,13 +2,6 @@
 
 #include <Hazel.h>
 
-#include "Platform/OpenGL/OpenGLShader.h"
-
-#include "imgui/imgui.h"
-
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
-
 class Sandbox2D :public Hazel::Layer
 {
 public:
@@ -28,6 +21,7 @@ private:
 	Hazel::Ref<Hazel::VertexArray> m_SquareVA;
 	Hazel::Ref<Hazel::Shader> m_FlatColorShader;
 
+	Hazel::Ref<Hazel::Texture2D> m_ChernoLogoTexture;
 
 	glm::vec4 m_SquareColor = { 0.2f, 0.3f, 0.8f, 1.0f };
 };
