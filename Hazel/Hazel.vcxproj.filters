@@ -1392,6 +1392,7 @@
     <ClInclude Include="src\Hazel\Core\Window.h" />
     <ClInclude Include="src\Hazel\Renderer\OrthoGraphicCameraController.h" />
     <ClInclude Include="src\Hazel\Renderer\Renderer2D.h" />
+    <ClInclude Include="src\Hazel\Debug\Instrumentor.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Hazel\ImGui\ImGuiBuild.cpp">
