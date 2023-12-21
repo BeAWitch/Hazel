@@ -12,7 +12,7 @@ out vec2 v_TexCoord;
 
 void main()
 {
-	v_TexCoord = a_TexCoord * 10.0f;
+	v_TexCoord = a_TexCoord;
 	gl_Position = u_ProjectionMatrix * u_ViewMatrix * u_TransformMatrix * vec4(a_Position, 1.0f);
 }
 
@@ -25,9 +25,10 @@ layout(location = 0) out vec4 color;
 in vec2 v_TexCoord;
 
 uniform sampler2D u_Texture;
+uniform float u_TilingFactor;
 uniform vec4 u_Color;
 
 void main()
 {
-	color = texture(u_Texture, v_TexCoord) * u_Color;
+	color = texture(u_Texture, v_TexCoord * u_TilingFactor) * u_Color;
 }
