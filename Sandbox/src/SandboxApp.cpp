@@ -28,8 +28,7 @@ public:
 			 0.0f,  0.5f, 0.0f, 0.6f, 0.4f, 0.8f, 1.0f
 		};
 
-		Hazel::Ref<Hazel::VertexBuffer> m_VertexBuffer;
-		m_VertexBuffer.reset(Hazel::VertexBuffer::Create(vertices, sizeof(vertices)));
+		Hazel::Ref<Hazel::VertexBuffer> m_VertexBuffer = Hazel::VertexBuffer::Create(vertices, sizeof(vertices));
 
 		// VB
 		Hazel::BufferLayout layout = {
@@ -42,8 +41,7 @@ public:
 		uint32_t indices[] = { 0, 1, 2 };
 
 		// IB
-		Hazel::Ref<Hazel::IndexBuffer> m_IndexBuffer;
-		m_IndexBuffer.reset(Hazel::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
+		Hazel::Ref<Hazel::IndexBuffer> m_IndexBuffer = Hazel::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t));
 		m_VertexArray->SetIndexBuffer(m_IndexBuffer);
 
 		std::string vertexSrc = R"(
@@ -98,8 +96,7 @@ public:
 		};
 
 		// VB
-		Hazel::Ref<Hazel::VertexBuffer> m_SquareVB;
-		m_SquareVB.reset(Hazel::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
+		Hazel::Ref<Hazel::VertexBuffer> m_SquareVB = Hazel::VertexBuffer::Create(squareVertices, sizeof(squareVertices));
 
 		Hazel::BufferLayout squareLayout = {
 			{Hazel::ShaderDataType::Float3, "a_Position"},
@@ -111,8 +108,7 @@ public:
 		uint32_t squareIndices[6] = { 0, 1, 2, 0, 2, 3 };
 
 		// IB
-		Hazel::Ref<Hazel::IndexBuffer> m_SquareIB;
-		m_SquareIB.reset(Hazel::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
+		Hazel::Ref<Hazel::IndexBuffer> m_SquareIB = Hazel::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t));
 		m_SquareVA->SetIndexBuffer(m_SquareIB);
 
 		std::string SquareVertexSrc = R"(
