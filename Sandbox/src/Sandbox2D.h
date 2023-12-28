@@ -2,6 +2,8 @@
 
 #include <Hazel.h>
 
+#include "ParticleSystem.h"
+
 class Sandbox2D :public Hazel::Layer
 {
 public:
@@ -15,7 +17,7 @@ public:
 	virtual void OnImGuiRender() override;
 	virtual void OnEvent(Hazel::Event& event) override;
 private:
-	Hazel::OrthoGraphicCameraController m_CameraController;
+	Hazel::OrthographicCameraController m_CameraController;
 
 	// Temp
 	Hazel::Ref<Hazel::VertexArray> m_SquareVA;
@@ -24,4 +26,7 @@ private:
 	Hazel::Ref<Hazel::Texture2D> m_ChernoLogoTexture;
 
 	glm::vec4 m_SquareColor = { 0.2f, 0.3f, 0.8f, 1.0f };
+
+	ParticleProps m_Particle;
+	ParticleSystem m_ParticleSystem;
 };

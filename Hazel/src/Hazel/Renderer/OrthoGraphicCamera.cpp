@@ -1,24 +1,24 @@
 #include "hzpch.h"
-#include "OrthoGraphicCamera.h"
+#include "OrthographicCamera.h"
 
 #include <glm/gtc/matrix_transform.hpp>
 
 namespace Hazel {
 
-	Hazel::OrthoGraphicCamera::OrthoGraphicCamera(float left, float right, float bottom, float top)
+	Hazel::OrthographicCamera::OrthographicCamera(float left, float right, float bottom, float top)
 		:m_ProjectionMatrix(glm::ortho(left, right, bottom, top, -1.0f, 1.0f)), m_ViewMatrix(1.0f)
 	{
 		HZ_PROFILE_FUNCTION();
 	}
 
-	void OrthoGraphicCamera::SetProjection(float left, float right, float bottom, float top)
+	void OrthographicCamera::SetProjection(float left, float right, float bottom, float top)
 	{
 		HZ_PROFILE_FUNCTION();
 
 		m_ProjectionMatrix = glm::ortho(left, right, bottom, top);
 	}
 
-	void Hazel::OrthoGraphicCamera::ReCalculateViewMatrix()
+	void Hazel::OrthographicCamera::ReCalculateViewMatrix()
 	{
 		HZ_PROFILE_FUNCTION();
 

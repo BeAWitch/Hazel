@@ -6,10 +6,10 @@
 
 namespace Hazel {
 
-	class OrthoGraphicCamera
+	class OrthographicCamera
 	{
 	public:
-		OrthoGraphicCamera(float left, float right, float bottom, float top);
+		OrthographicCamera(float left, float right, float bottom, float top);
 		
 		void SetProjection(float left, float right, float bottom, float top);
 

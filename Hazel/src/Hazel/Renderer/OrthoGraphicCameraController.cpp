@@ -1,18 +1,18 @@
 #include "hzpch.h"
-#include "OrthoGraphicCameraController.h"
+#include "OrthographicCameraController.h"
 
 #include "Hazel/Core/Input.h"
 #include "Hazel/Core/KeyCodes.h"
 
 namespace Hazel {
 
-	OrthoGraphicCameraController::OrthoGraphicCameraController(float aspectRatio, bool rotation)
-		:m_AspectRatio(aspectRatio), m_Camera(-m_AspectRatio * m_ZoomLevel, m_AspectRatio* m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel), m_Rotation(rotation)
+	OrthographicCameraController::OrthographicCameraController(float aspectRatio, bool rotation)
+		:m_AspectRatio(aspectRatio), m_Bounds({ -m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel }), m_Camera(m_Bounds.Left, m_Bounds.Right, m_Bounds.Bottom, m_Bounds.Top), m_Rotation(rotation)
 	{
 
 	}
 
-	void OrthoGraphicCameraController::OnUpdate(Timestep ts)
+	void OrthographicCameraController::OnUpdate(Timestep ts)
 	{
 		HZ_PROFILE_FUNCTION();
 
@@ -42,31 +42,33 @@ namespace Hazel {
 		m_CameraTranslationSpeed = m_ZoomLevel; // 缩放等级越大移动越慢
 	}
 
-	void OrthoGraphicCameraController::OnEvent(Event& e)
+	void OrthographicCameraController::OnEvent(Event& e)
 	{
 		HZ_PROFILE_FUNCTION();
 
 		EventDispatcher dispatcher(e);
-		dispatcher.Dispatch<MouseScrolledEvent>(HZ_BIND_EVENT_FN(OrthoGraphicCameraController::OnMouseScrolled));
-		dispatcher.Dispatch<WindowResizeEvent>(HZ_BIND_EVENT_FN(OrthoGraphicCameraController::OnWindowResized));
+		dispatcher.Dispatch<MouseScrolledEvent>(HZ_BIND_EVENT_FN(OrthographicCameraController::OnMouseScrolled));
+		dispatcher.Dispatch<WindowResizeEvent>(HZ_BIND_EVENT_FN(OrthographicCameraController::OnWindowResized));
 	}
 
-	bool OrthoGraphicCameraController::OnMouseScrolled(MouseScrolledEvent& e)
+	bool OrthographicCameraController::OnMouseScrolled(MouseScrolledEvent& e)
 	{
 		HZ_PROFILE_FUNCTION();
 
 		m_ZoomLevel -= e.GetYOffset() * 0.5f;
 		m_ZoomLevel = std::max(m_ZoomLevel, 0.25f); // 防止过近
-		m_Camera.SetProjection(-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel);
+		m_Bounds = { -m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel };
+		m_Camera.SetProjection(m_Bounds.Left, m_Bounds.Right, m_Bounds.Bottom, m_Bounds.Top);
 		return false;
 	}
 
-	bool OrthoGraphicCameraController::OnWindowResized(WindowResizeEvent& e)
+	bool OrthographicCameraController::OnWindowResized(WindowResizeEvent& e)
 	{
 		HZ_PROFILE_FUNCTION();
 
 		m_AspectRatio = (float)e.GetWidth() / (float)e.GetHeight();
-		m_Camera.SetProjection(-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel);
+		m_Bounds = { -m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel };
+		m_Camera.SetProjection(m_Bounds.Left, m_Bounds.Right, m_Bounds.Bottom, m_Bounds.Top);
 		return false;
 	}
 

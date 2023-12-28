@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Hazel/Renderer/OrthoGraphicCamera.h"
+#include "Hazel/Renderer/OrthographicCamera.h"
 #include "Hazel/Core/Timestep.h"
 
 #include "Hazel/Events/ApplicationEvent.h"
@@ -8,23 +8,39 @@
 
 namespace Hazel {
 
-	class OrthoGraphicCameraController
+	struct OrthographicCameraBounds
+	{
+		float Left, Right;
+		float Bottom, Top;
+
+		float GetWidth() { return Right - Left; }
+		float GetHeight() { return Top - Bottom; }
+	};
+
+	class OrthographicCameraController
 	{
 	public:
-		OrthoGraphicCameraController(float aspectRatio, bool rotation = false);
+		OrthographicCameraController(float aspectRatio, bool rotation = false);
 
 		void OnUpdate(Timestep ts);
 		void OnEvent(Event& e);
 
-		OrthoGraphicCamera& GetCamera() { return m_Camera; }
-		const OrthoGraphicCamera& GetCamera() const { return m_Camera; }
+		OrthographicCamera& GetCamera() { return m_Camera; }
+		const OrthographicCamera& GetCamera() const { return m_Camera; }
+
+		float GetZoomLevel() const { return m_ZoomLevel; }
+		void SetZoomLevel(float level) { m_ZoomLevel = level; }
+
+		const OrthographicCameraBounds& GetBounds() const { return m_Bounds; }
 	private:
 		bool OnMouseScrolled(MouseScrolledEvent& e);
 		bool OnWindowResized(WindowResizeEvent& e);
 	private:
 		float m_AspectRatio; // 宽高比
 		float m_ZoomLevel = 1.0f; // 缩放
-		OrthoGraphicCamera m_Camera;
+		// bounds和camera的顺序会影响第一帧的显示，先初始化bounds，camera才能正确初始化
+		OrthographicCameraBounds m_Bounds;
+		OrthographicCamera m_Camera;
 
 		glm::vec3 m_CameraPosition = { 0.0f,0.0f,0.0f };
 		float m_CameraTranslationSpeed = 3.0f;
