@@ -22,8 +22,10 @@ private:
 	// Temp
 	Hazel::Ref<Hazel::VertexArray> m_SquareVA;
 	Hazel::Ref<Hazel::Shader> m_FlatColorShader;
+	Hazel::Ref<Hazel::SubTexture2D> m_TextureStairs, m_TextureBarrel, m_TextureTree;
 
 	Hazel::Ref<Hazel::Texture2D> m_ChernoLogoTexture;
+	Hazel::Ref<Hazel::Texture2D> m_SpriteSheet;
 
 	glm::vec4 m_SquareColor = { 0.2f, 0.3f, 0.8f, 1.0f };
 

@@ -1393,6 +1393,7 @@
     <ClInclude Include="src\Hazel\Renderer\OrthoGraphicCameraController.h" />
     <ClInclude Include="src\Hazel\Renderer\Renderer2D.h" />
     <ClInclude Include="src\Hazel\Debug\Instrumentor.h" />
+    <ClInclude Include="src\Hazel\Renderer\SubTexture2D.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Hazel\ImGui\ImGuiBuild.cpp">
@@ -1461,5 +1462,6 @@
     <ClCompile Include="src\Hazel\Core\Log.cpp" />
     <ClCompile Include="src\Hazel\Renderer\OrthoGraphicCameraController.cpp" />
     <ClCompile Include="src\Hazel\Renderer\Renderer2D.cpp" />
+    <ClCompile Include="src\Hazel\Renderer\SubTexture2D.cpp" />
   </ItemGroup>
 </Project>
