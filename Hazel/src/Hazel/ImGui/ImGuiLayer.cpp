@@ -14,8 +14,6 @@
 
 namespace Hazel {
 
-
-
 	ImGuiLayer::ImGuiLayer()
 		: Layer("ImGuiLayer")
 	{
@@ -69,10 +67,14 @@ namespace Hazel {
 		ImGui::DestroyContext();
 	}
 
-	void ImGuiLayer::OnImGuiRender()
+	void ImGuiLayer::OnEvent(Event& event)
 	{
-		/*static bool show = true;
-		ImGui::ShowDemoWindow(&show);*/
+		if (m_BlockEvents) // 如果被阻塞，后面的layer就不会再处理这个事件了。
+		{
+			ImGuiIO& io = ImGui::GetIO();
+			event.m_Handled |= event.IsInCategory(EventCategoryMouse) & io.WantCaptureMouse;
+			event.m_Handled |= event.IsInCategory(EventCategoryKeyboard) & io.WantCaptureKeyboard;
+		}
 	}
 
 	void ImGuiLayer::Begin()
