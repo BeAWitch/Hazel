@@ -27,8 +27,7 @@ namespace Hazel {
 	private:
 		struct SceneData
 		{
-			glm::mat4 ViewMatrix;
-			glm::mat4 ProjectionMatrix;
+			glm::mat4 ViewProjectionMatrix;
 		};
 		static SceneData* m_SceneData;
 	};

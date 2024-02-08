@@ -28,8 +28,7 @@ namespace Hazel {
 
 	void Renderer::BeginScene(OrthographicCamera& camera)
 	{
-		m_SceneData->ViewMatrix = camera.GetViewMatrix();
-		m_SceneData->ProjectionMatrix = camera.GetProjectionMatrix();
+		m_SceneData->ViewProjectionMatrix = camera.GetViewProjectionMatrix();
 	}
 
 	void Renderer::EndScene()
@@ -39,8 +38,7 @@ namespace Hazel {
 	void Renderer::Submit(const Ref<Shader>& shader, const Ref<VertexArray>& vertexArray, const glm::mat4& transform)
 	{
 		shader->Bind();
-		std::dynamic_pointer_cast<OpenGLShader>(shader)->UploadUniformMat4("u_ViewMatrix",m_SceneData->ViewMatrix);
-		std::dynamic_pointer_cast<OpenGLShader>(shader)->UploadUniformMat4("u_ProjectionMatrix", m_SceneData->ProjectionMatrix);
+		std::dynamic_pointer_cast<OpenGLShader>(shader)->UploadUniformMat4("u_ViewProjectionMatrix", m_SceneData->ViewProjectionMatrix);
 
 		std::dynamic_pointer_cast<OpenGLShader>(shader)->UploadUniformMat4("u_TransformMatrix", transform);
 
