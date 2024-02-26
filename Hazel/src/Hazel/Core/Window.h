@@ -23,7 +23,7 @@ namespace Hazel {
 		}
 	};
 
-	class HAZEL_API Window
+	class  Window
 	{
 	public:
 		using EventCallbackFn = std::function<void(Event&)>;

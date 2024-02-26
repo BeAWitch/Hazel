@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Hazel/COre/Base.h"
+#include "Hazel/Core/Base.h"
 #include "hzpch.h"
 
 // ÓÃºêÌæ»» get º¯Êý
@@ -34,7 +34,7 @@ namespace Hazel {
 
 
 
-	class HAZEL_API Event
+	class Event
 	{
 		friend class EventDispatcher;
 	public:

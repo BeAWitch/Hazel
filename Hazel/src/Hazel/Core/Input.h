@@ -7,7 +7,7 @@
 namespace Hazel {
 
 	// Input类应该是全局的，不需要创建多个实例，所以采用静态实现
-	class HAZEL_API  Input
+	class   Input
 	{
 	public:
 		static bool IsKeyPressed(int keycode);
